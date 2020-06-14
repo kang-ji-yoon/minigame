@@ -1,0 +1,133 @@
+void color_n5_bu() {
+	int i, j;
+	int map[34][38] = { 0 };
+	cls();
+	normalbound(c_gray);
+	halfbound(c_gray, 2);
+	chrpos p1 = { 0,18 };
+	chrpos p2 = { 37,18 };
+	map[18][0] = 1;
+	map[18][37] = 2;
+	while (1) {
+		int map1 = 0, map2 = 0;
+		for (i = 0; i < 38; i++) {
+			for (j = 0; j < 34; j++) {
+				gotoxy(2 * i + 2, j + 1);
+				if (map[j][i] == 1) {
+					map1++;
+					if (i != p1.posx || j != p1.posy) {
+						tc(cc_yellow);
+						printf("бс");
+					}
+				}
+				if (map[j][i] == 2) {
+					map2++;
+					if (i != p2.posx || j != p2.posy) {
+					tc(cc_green);
+					printf("бс");
+					}
+				}
+			}
+		}
+		gotoxy(32, 37);
+		tc(c_white);
+		printf("%4d", map1);
+		gotoxy(44, 37);
+		printf("%d", map2);
+		gotoxy(2 * p1.posx + 2, p1.posy + 1);
+		tc(cc_blue);
+		printf("б┌");
+		gotoxy(2 * p2.posx + 2, p2.posy + 1);
+		tc(cc_red);
+		printf("б┌");
+		Sleep(1);
+		if (GetAsyncKeyState(A) && p1.posx > 0) {
+			if (p1.posx-1 != p2.posx || p1.posy != p2.posy) {
+				gotoxy(2 * p1.posx + 2, p1.posy + 1);
+				printf("  ");
+				p1.posx--;
+				for (i = -1; i <= 1; i++) for (j = -1; j <= 1; j++) 
+					if (p1.posy + j >= 0 && p1.posx + i >= 0 && p1.posy + j <= 33 && p1.posx + i <= 37) 
+						if ((p1.posy + j != p2.posy) || (p1.posx + i != p2.posx))
+						map[p1.posy + j][p1.posx + i] = 1;
+			}
+		}
+		if (GetAsyncKeyState(D) && p1.posx < 37) {
+			if (p1.posx+1 != p2.posx || p1.posy != p2.posy) {
+				gotoxy(2 * p1.posx + 2, p1.posy + 1);
+				printf("  ");
+				p1.posx++;
+				for (i = -1; i <= 1; i++) for (j = -1; j <= 1; j++)
+					if (p1.posy + j >= 0 && p1.posx + i >= 0 && p1.posy + j <= 33 && p1.posx + i <= 37)
+						if ((p1.posy + j != p2.posy) || (p1.posx + i != p2.posx))
+						map[p1.posy + j][p1.posx + i] = 1;
+			}
+		}
+		if (GetAsyncKeyState(W) && p1.posy > 0) {
+			if (p1.posy-1 != p2.posy || p1.posx != p2.posx) {
+				gotoxy(2 * p1.posx + 2, p1.posy + 1);
+				printf("  ");
+				p1.posy--;
+				for (i = -1; i <= 1; i++) for (j = -1; j <= 1; j++)
+					if (p1.posy + j >= 0 && p1.posx + i >= 0 && p1.posy + j <= 33 && p1.posx + i <= 37)
+						if ((p1.posy + j != p2.posy) || (p1.posx + i != p2.posx))
+							map[p1.posy + j][p1.posx + i] = 1;
+			}
+		}
+		if (GetAsyncKeyState(S) && p1.posy < 33) {
+			if (p1.posy+1 != p2.posy || p1.posx != p2.posx) {
+				gotoxy(2 * p1.posx + 2, p1.posy + 1);
+				printf("  ");
+				p1.posy++;
+				for (i = -1; i <= 1; i++) for (j = -1; j <= 1; j++)
+					if (p1.posy + j >= 0 && p1.posx + i >= 0 && p1.posy + j <= 33 && p1.posx + i <= 37)
+						if ((p1.posy + j != p2.posy) || (p1.posx + i != p2.posx))
+							map[p1.posy + j][p1.posx + i] = 1;
+			}
+		}
+		if (GetAsyncKeyState(J) && p2.posx > 0) {
+			if (p2.posx - 1 != p1.posx || p1.posy != p2.posy) {
+				gotoxy(2 * p2.posx + 2, p2.posy + 1);
+				printf("  ");
+				p2.posx--;
+				for (i = -1; i <= 1; i++) for (j = -1; j <= 1; j++)
+					if (p2.posy + j >= 0 && p2.posx + i >= 0 && p2.posy + j <= 33 && p2.posx + i <= 37)
+						if ((p2.posy + j != p1.posy) || (p2.posx + i != p1.posx))
+							map[p2.posy + j][p2.posx + i] = 2;
+			}
+		}
+		if (GetAsyncKeyState(L) && p2.posx < 37) {
+			if (p2.posx + 1 != p1.posx || p1.posy != p2.posy) {
+				gotoxy(2 * p2.posx + 2, p2.posy + 1);
+				printf("  ");
+				p2.posx++;
+				for (i = -1; i <= 1; i++) for (j = -1; j <= 1; j++)
+					if (p2.posy + j >= 0 && p2.posx + i >= 0 && p2.posy + j <= 33 && p2.posx + i <= 37)
+						if ((p2.posy + j != p1.posy) || (p2.posx + i != p1.posx))
+							map[p2.posy + j][p2.posx + i] = 2;
+			}
+		}
+		if (GetAsyncKeyState(I) && p2.posy > 0) {
+			if (p2.posy - 1 != p1.posy || p1.posx != p2.posx) {
+				gotoxy(2 * p2.posx + 2, p2.posy + 1);
+				printf("  ");
+				p2.posy--;
+				for (i = -1; i <= 1; i++) for (j = -1; j <= 1; j++)
+					if (p2.posy + j >= 0 && p2.posx + i >= 0 && p2.posy + j <= 33 && p2.posx + i <= 37)
+						if ((p2.posy + j != p1.posy) || (p2.posx + i != p1.posx))
+							map[p2.posy + j][p2.posx + i] = 2;
+			}
+		}
+		if (GetAsyncKeyState(K) && p2.posy < 33) {
+			if (p2.posy + 1 != p1.posy || p1.posx != p2.posx) {
+				gotoxy(2 * p2.posx + 2, p2.posy + 1);
+				printf("  ");
+				p2.posy++;
+				for (i = -1; i <= 1; i++) for (j = -1; j <= 1; j++)
+					if (p2.posy + j >= 0 && p2.posx + i >= 0 && p2.posy + j <= 33 && p2.posx + i <= 37)
+						if ((p2.posy + j != p1.posy) || (p2.posx + i != p1.posx))
+							map[p2.posy + j][p2.posx + i] = 2;
+			}
+		}
+	}
+}
